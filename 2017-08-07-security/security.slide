@@ -1,0 +1,138 @@
+Information Security
+30,000 foot view
+1 Aug 2017
+
+Andrew Alexander
+Software Engineer/Cloud Architect, Capital One
+andrew.alexander@capitalone.com
+https://andrewalexander.io
+@andrewalex1992
+
+* Who am I?
+- Software Engineer in Cyber
+- Cloud Architect
+- Coffee Addict/Aficionado
+- Conspiracy Theorist
+- Craft Beer enthusiast
+- Buzz word love/hater
+
+* Security in a nutshell
+_My_ _definition_:
+
+Ensuring that any/all systems involved in electronic communication are only used by the people intended and behave in expected ways.
+
+- Parts you expect
+
+    Cryptography
+    Access control/Identity Management
+    Web application penetration testing
+    "Typical Security Stuff"
+- Parts you may not...
+
+    Physical Penetration Testing
+     - People break into buildings
+    Business Continuity Planning
+     - Disaster Recovery
+     - Playbooks for worst case scenarios/doomsday
+     - Flood/Fire plans
+     - Lots and lots of audit stuff
+
+* Modern Web Applications - Biggest Offender
+Modern applications have a ton going on - one vulnerability in any part means the entire application is compromised
+
+- Rich, logic-heavy front-ends, sometimes in the form of thick clients
+    Mobile phone apps
+    Chrome web applications
+    Video Game Console Apps
+    Lots and lots of cookies (tracking and stealing sessions)
+- Large, often distributed back-end systems
+    Absurd amounts of APIs - requests routinely come/go from other sites/servers
+    CORS, anyone?
+- Can run on insecure or compromised Protocols/Networks
+    HTTP vs. HTTPS
+    Entities decrypting SSL traffic - man in the middle (MITM)
+      - Can be good or bad... companies monitoring associates' laptops vs. oppressive governments
+
+* Sources of risk
+*Systems* are more than just the software. All people, technology, and processes compose a system. All components of the system introduce risk.
+
+- Modern web applications (see previous slide)
+- Humans
+- Weather
+- Natural Disasters
+- Lack of Resources/Effort/Planning
+- Humans
+- Also Humans
+
+
+* Definitions/Acronyms
+We live in a sea of buzzwords, and I tend to use terms interchangably or incorrectly and confuse people... So here's some terms I use and my definitions for them
+--- 
+*API* - Application Programming Interfaces, commonly used to provide complex services/tasks with a simple contractual interface
+*Front-end* - Part of application the end-user interfaces with. Responsible for translating and sending user input to the back-end
+*Client* - Usually an alias for front-end, but can also refer to the end user using the web application
+*Back-end* - Part of application the front-end interfaces with. Responsible for handling front-end input and parsing request, usually resulting in calls to databases, other servers, or external/third-party APIs
+*Server* - Usually an alias for back-end, but can also refer to the actual machines running code, likely on x86 hardware
+*Authentication* - Who you are
+*Authorization* - What you're allowed to do
+
+* Definitions/Acronyms (cont'd)
+*OSI* *Model* - 7-layer model of communications from the physical (wire) level all the way to the application level:
+Physical, Data, Network, Transport, Session, Presentation, Application
+
+    Please Do Not Throw Sausage Pizza Away
+    All People Seem To Need Data Processing
+*HTTP* - Hypertext Transfer Protocol - application-level (layer 7) responsible for most browser-based web application traffic
+*HTTPS* - Secure HTTP; adds Public Key Infrastructure to HTTP. This provides authentication/validation of the server's identity and (once it passes the checks), begins encrypting all traffic between the client and server.
+*SSL/TLS* - Often used interchangably, but refer to distinct protocols - Secure Sockets Layer or Transport Layer Security. Responsible for HTTPS traffic; the protocols provide the means for authentication and encryption of traffic and rely on both public key cryptography (and corresponding infrastructure) and symmetric cryptography to function.
+
+* Definitions/Acronyms (cont'd)
+*Public* *Key* *Cryptography* - The use of two distinct, yet cryptographically related keys to both encrypt data in one direction and validate the sender of a signed piece of data. Commonly comes with a public and private component, either referred to as keys or certificates. Also referred to as *Asymmetric* *Cryptography*
+*Symmetric* *Cryptography* - The use of a single cryptographic key for both encryption and decryption
+*Encryption* - Applying a cryptographic operation with a piece of plaintext and a cryptographic key as inputs, producing ciphertext as output.  
+*Decryption* - Applying a cryptographic operation with a piece of ciphertext and a cryptographic key as inputs, producing plaintext as output. 
+*MITM* - Man in the middle [attack]; when a "man" is in between a client and server such that the client believes it is communicating with the real server and the server believes it is communicating with the real client. The MITM can often decrypt HTTPS traffic, potentially compromising the encrypted payloads if they are not client-side encrypted.
+
+* Definitions/Acronyms (cont'd)
+*Client-side* *encryption* - Encrypting a payload before sending it through a network. If sending through HTTPS, HTTPS further encrypts around the client-side encrypted data, rendering a man in the middle ineffective.
+*Signing* - Applying a cryptographic operation with a piece of plaintext and a cryptographic key as inputs, producing a cryptographic signature around the plaintext as output. It is important to note this still leaves the message payload intact. If the payload was not previously encrypted, it should be treated as plaintext. This cryptographic signature can be validated with a separate cryptographic operation that can vary, but usually involves a cryptographic operation with a public key, assuming a private key was used to sign the message (most common).
+*XSS* - Cross-site scripting; executing code on a client or server that the application writers did not intend to be executed.
+*CSRF* - Cross-site request forgery; making a server believe a fraudulent request came from a trusted client.
+*Session* *Hijacking* - stealing a valid user's cookies or other session tokens after they log in and using them to create an otherwise-valid session.
+
+* Various roles in security
+- Vulnerability testing - automated and manual (demos later)
+- Perimeter monitoring/fortification
+- Network infrastructure building/monitoring
+- IDS/IPS - Intrusion Detection/Prevention Systems - Host-based (HIDS) and Network-based (NIDS)
+- Logging all the things
+- Compiling audit data from all the logs
+- Incident Response/Forensics
+- Architecture/Processes
+- Information Security Officers/Consulting
+
+* What we will demonstrate today
+- XSS 
+- CSRF
+- Injection
+- Underprotected APIs
+
+.image eratocode-web.png _ 1000
+
+* Some fun tools
+
+.link https://pentesterlab.com/exercises/ Pentester Lab - Actual vulnerabilities/CVEs in the wild demonstrated
+.link https://www.hacksplaining.com/ Hacksplaining - Learn to hack/protect yourself
+.link https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project OWASP Zed Attack Proxy (ZAP)
+.link https://www.kali.org/downloads/ Kali Linux 
+    has a lot of tools preinstalled/configured, many of which typically 
+    only have source code installers
+
+- Intentionally vulnerable web apps
+.link https://github.com/WebGoat/WebGoat/wiki/Running-WebGoat OWASP WebGoat 
+.link http://www.dvwa.co.uk/ Damn Vulnerable Web Application (DVWA)
+.link https://github.com/bkimminich/juice-shop Juice Shop 
+
+    Also a class at Capital One University that includes a subscription to 
+    some otherwise costly paid versions of vulnerable web apps
+

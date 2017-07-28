@@ -172,10 +172,10 @@ func killServer(w http.ResponseWriter, r *http.Request) {
 		} else {
 			delete(clientMap, eid)
 			writeFile(clientMap)
-		}
 
-		t := template.Must(template.ParseGlob("templates/*"))
-		t.ExecuteTemplate(w, "index", nil)
+			t := template.Must(template.ParseGlob("templates/*"))
+			t.ExecuteTemplate(w, "index", nil)
+		}
 	}
 
 }

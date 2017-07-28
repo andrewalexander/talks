@@ -14,7 +14,7 @@
         font-weight: normal;
     }
     .main {
-        max-width: 700px;
+        max-width: 900px;
         min-width: 400px;
         margin: 10px auto;
         padding: 20px;
@@ -51,7 +51,6 @@
         color: #666;
     }
     input[type="text"] {
-        max-width: 400px;
         width: 100%;
         padding: 8px;
     }
@@ -77,6 +76,10 @@
         margin: 10px;
         display: flex;
         justify-content: space-between;
+    }
+    .server b {
+        max-width: 65%;
+        word-break: break-all;
     }
     </style>
 </head>

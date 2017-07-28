@@ -3,7 +3,7 @@ Information Security
 1 Aug 2017
 
 Andrew Alexander
-Software Engineer/Cloud Architect, Capital One
+Senior Software Engineer/Cloud Architect, Capital One
 andrew.alexander@capitalone.com
 https://andrewalexander.io
 @andrewalex1992
@@ -19,7 +19,7 @@ https://andrewalexander.io
 * Security in a nutshell
 _My_ _definition_:
 
-Ensuring that any/all systems involved in electronic communication are only used by the people intended and behave in expected ways.
+Ensuring that any/all systems involved in electronic communication are *only* *used* *by* *the* *people* *intended* and *only* *in* *the* *way* *they* *were* *intended* *to* *be* *used*
 
 - Parts you expect
 
@@ -29,13 +29,26 @@ Ensuring that any/all systems involved in electronic communication are only used
     "Typical Security Stuff"
 - Parts you may not...
 
-    Physical Penetration Testing
-     - People break into buildings
+    Physical Penetration Testing - People breaking into buildings
     Business Continuity Planning
      - Disaster Recovery
      - Playbooks for worst case scenarios/doomsday
      - Flood/Fire plans
      - Lots and lots of audit stuff
+
+* Sources of risk
+Ultimately, everything comes down to risk...
+
+*Systems* are more than just the software. All people, technology, and processes compose a system. All components of the system introduce risk.
+
+- Modern web applications (see next slide)
+- Humans
+- Weather
+- Natural Disasters
+- Lack of Resources/Effort/Planning
+- Humans
+- Unforseen breakages due to software updates
+- Also Humans
 
 * Modern Web Applications - Biggest Offender
 Modern applications have a ton going on - one vulnerability in any part means the entire application is compromised
@@ -52,17 +65,6 @@ Modern applications have a ton going on - one vulnerability in any part means th
     HTTP vs. HTTPS
     Entities decrypting SSL traffic - man in the middle (MITM)
       - Can be good or bad... companies monitoring associates' laptops vs. oppressive governments
-
-* Sources of risk
-*Systems* are more than just the software. All people, technology, and processes compose a system. All components of the system introduce risk.
-
-- Modern web applications (see previous slide)
-- Humans
-- Weather
-- Natural Disasters
-- Lack of Resources/Effort/Planning
-- Humans
-- Also Humans
 
 
 * Definitions/Acronyms
@@ -112,12 +114,61 @@ Physical, Data, Network, Transport, Session, Presentation, Application
 - Information Security Officers/Consulting
 
 * What we will demonstrate today
+Underprotected web applications/APIs in the form of:
 - XSS 
 - CSRF
-- Injection
-- Underprotected APIs
+- Injection (SQL and otherwise)
+
+Goal: show why input sanitization is important
 
 .image eratocode-web.png _ 1000
+
+* Warnings/Disclaimers
+WARNING:
+It should go without saying, but hacking is *illegal*. 
+
+These demonstrations are just that - _demonstrations_. They are occurring on systems intentionally set up to be compromised, and as they are owned by me - I gave the express permission to "hack" them. If you do some of these things to REAL websites, *you* *can* *and* *will* *be* *charged* *to* *the* *fullest* *extent* *of* *any*/*all* *applicable* *laws*.
+
+DISCLAIMER:
+I may have cheated a little on the OWASP Juice Shop stuff - great write up on all them on this website: https://incognitjoe.github.io/hacking-the-juice-shop.html
+
+* XSS - Cross Site Scripting
+Game from Google Application Security: https://xss-game.appspot.com
+Levels 1 + 2
+
+*Level* *1*: 
+Script tags; hmmm....
+
+*Level* *2*: 
+Bit tougher; Need to close out the existing tags.
+
+But... `<script>alert('got em')</script>` won't work here
+Check out image tags and the `onerror` property 😉
+
+Levels 3-6 escalate even further - save for later!
+
+SANITIZE YOUR INPUT!
+
+* SQL Injection
+Taking advantage of unsanitized user input
+
+OWASP Juice Shop - Dump all user credentials
+[CNAME HERE]
+0) Logging in with SQL injection doesn't count ;)
+1) Find places we know will execute SQL...
+2) Panic when you realize it isn't pulling the right table
+3) Feel awesome when you learn/remember `UNION` SQL statements 
+4) Get package
+
+* CSRF - Cross Site Request Forgery
+OWASP Juice Shop - Changing Bender's Password without using SQL Injection!
+[CNAME HERE]
+0) SQL Inject to log in as Bender
+1) Go to Change Password... Oh no! we need current password... or do we?
+	- Can do some URL manipulation!
+	- This is _technically_ XSS if done on this website; we can do better
+2) Craft and get victim to click bad link... 
+3) CSRF just happened and Bender's pw is now changed! (profit)
 
 * Some fun tools
 
@@ -128,11 +179,13 @@ Physical, Data, Network, Transport, Session, Presentation, Application
     has a lot of tools preinstalled/configured, many of which typically 
     only have source code installers
 
-- Intentionally vulnerable web apps
+- Intentionally vulnerable web apps/servers
+.link http://overthewire.org/wargames/ Over the Wire - Wargames
 .link https://github.com/WebGoat/WebGoat/wiki/Running-WebGoat OWASP WebGoat 
 .link http://www.dvwa.co.uk/ Damn Vulnerable Web Application (DVWA)
 .link https://github.com/bkimminich/juice-shop Juice Shop 
 
     Also a class at Capital One University that includes a subscription to 
-    some otherwise costly paid versions of vulnerable web apps
+    some otherwise costly paid versions of vulnerable web apps.
+    COUiLearn -> Search Catalog -> "Hackerthon Preparation Training"
 

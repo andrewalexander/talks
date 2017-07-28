@@ -179,13 +179,16 @@ OWASP Juice Shop - Changing Bender's Password without using SQL Injection!
     has a lot of tools preinstalled/configured, many of which typically 
     only have source code installers
 
+
+* Some fun tools, cont'd
+
 - Intentionally vulnerable web apps/servers
 .link http://overthewire.org/wargames/ Over the Wire - Wargames
 .link https://github.com/WebGoat/WebGoat/wiki/Running-WebGoat OWASP WebGoat 
 .link http://www.dvwa.co.uk/ Damn Vulnerable Web Application (DVWA)
-.link https://github.com/bkimminich/juice-shop Juice Shop 
+.link https://github.com/bkimminich/juice-shop Juice Shop (what we used today)
 
-    Also a class at Capital One University that includes a subscription to 
+    Class at Capital One University that includes a subscription to 
     some otherwise costly paid versions of vulnerable web apps.
     COUiLearn -> Search Catalog -> "Hackerthon Preparation Training"
 

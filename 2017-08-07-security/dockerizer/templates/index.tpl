@@ -112,7 +112,7 @@
         {{range $index, $elem := .}}
             {{ if $elem.URL }}
                 <div class="server">
-                    <b>{{$elem.ContainerId}}</b> <span>Server URL: <a href="http://{{$elem.URL}}:{{$elem.Port}}" target="_blank">{{$elem.URL}}:{{$elem.Port}}</a></span>
+                    <span>Container ID: <b>{{$elem.ContainerId}}</b></span> &nbsp <span>Server URL: <a href="http://{{$elem.URL}}:{{$elem.Port}}" target="_blank">{{$elem.URL}}:{{$elem.Port}}</a></span>
                 </div>
             {{ else if $elem.Error }}
                 <div class="server error">Error encountered: {{$elem.Error}}</div>

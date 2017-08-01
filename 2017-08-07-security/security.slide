@@ -152,6 +152,10 @@ SANITIZE YOUR INPUT!
 * SQL Injection
 Taking advantage of unsanitized user input
 
+.image exploits_of_a_mom.png
+.caption Her daughter is named Help I'm trapped in a driver's license factory.
+
+* SQL Injection demonstrated
 OWASP Juice Shop - Dump all user credentials
 [CNAME HERE]
 0) Logging in with SQL injection doesn't count ;)
@@ -172,12 +176,14 @@ OWASP Juice Shop - Changing Bender's Password without using SQL Injection!
 
 * Some fun tools
 
-.link https://pentesterlab.com/exercises/ Pentester Lab - Actual vulnerabilities/CVEs in the wild demonstrated
+.link https://pentesterlab.com/exercises/ Pentester Lab - Actual vulnerabilities/CVEs in the wild demonstrated with VMs and walkthroughs
 .link https://www.hacksplaining.com/ Hacksplaining - Learn to hack/protect yourself
 .link https://www.owasp.org/index.php/OWASP_Zed_Attack_Proxy_Project OWASP Zed Attack Proxy (ZAP)
 .link https://www.kali.org/downloads/ Kali Linux 
-    has a lot of tools preinstalled/configured, many of which typically 
-    only have source code installers
+- has a lot of tools preinstalled/configured, many of which typically only have source code installers
+.link https://www.metasploit.com/ Metasploit and
+.link https://sourceforge.net/projects/metasploitable/files/Metasploitable2/ Metasploitable
+.link http://sqlmap.org/ SQLmap - automatic SQL injection/takeover penetration testing tool
 
 
 * Some fun tools, cont'd

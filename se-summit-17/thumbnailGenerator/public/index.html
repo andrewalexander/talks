@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  
+  <!--
+    Copyright 2012 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+    Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
+
+        http://aws.amazon.com/apache2.0/
+
+    or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+  -->
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Welcome</title>
+  <style>
+  body {
+    color: #ffffff;
+    background-color: #E0E0E0;
+    font-family: Arial, sans-serif;
+    font-size:14px;
+    -moz-transition-property: text-shadow;
+    -moz-transition-duration: 4s;
+    -webkit-transition-property: text-shadow;
+    -webkit-transition-duration: 4s;
+    text-shadow: none;
+  }
+  body.blurry {
+    -moz-transition-property: text-shadow;
+    -moz-transition-duration: 4s;
+    -webkit-transition-property: text-shadow;
+    -webkit-transition-duration: 4s;
+    text-shadow: #fff 0px 0px 25px;
+  }
+  a {
+    color: #0188cc;
+  }
+  .textColumn, .linksColumn {
+    padding: 2em;
+  }
+  .textColumn {
+    position: absolute;
+    top: 0px;
+    right: 50%;
+    bottom: 0px;
+    left: 0px;
+
+    text-align: right;
+    padding-top: 11em;
+    background-color: #003362;
+    background-image: -moz-radial-gradient(left top, circle, #336D92 0%, #003362 60%);
+    background-image: -webkit-gradient(radial, 0 0, 1, 0 0, 500, from(#336D92), to(#003362));
+  }
+  .textColumn p {
+    width: 75%;
+    float:right;
+  }
+  .contentColumn {
+    position: absolute;
+    top:0px;
+    right: 0px;
+    bottom: 50%;
+    left: 50%;
+    padding-left: 3em;
+    padding-right: 1em;
+
+    background-color: #E0E0E0;
+    color: #273B49;
+  }
+
+  .input{
+      width: 100%;
+  }
+
+  h1 {
+    font-size: 500%;
+    font-weight: normal;
+    margin-bottom: 0em;
+  }
+  h2 {
+    font-size: 200%;
+    font-weight: normal;
+    margin-bottom: 0em;
+  }
+  ul {
+    padding-left: 1em;
+    margin: 0px;
+  }
+  li {
+    margin: 1em 0em;
+  }
+  </style>
+</head>
+<body id="sample">
+  <div class="textColumn">
+    <h1>2017 Software Engineering Summit</h1>
+    <p>Sample website for the 2017 Capital One Software Engineering Summit</p>
+  </div>
+  
+  <div class="contentColumn"> 
+    <h2>What's Next?</h2>
+    <ul>
+    
+    <li>Create an S3 bucket and/or sub-directories in your bucket(s)
+      <ul>
+        <li>We are using `se-summit-17-demo-bucket` for our bucket name and `raw-images` for the directory that our raw images will be uploaded to</li>
+      </ul>
+    </li>
+    
+    <li>Deploy your lambda function to create thumbnails from larger images
+      <ul>
+        <li>createThumbnail.js code is found <a href="https://gist.github.com/andrewalexander/cfa1145d49d337483f84763adee4c09c">on GitHub gist</a></li>
+        <li>Install local dependencies with `npm install async gm`</li>
+        <li>Zip the createThumbnail.js and node_modules/ folder in a single zip</li>
+      </ul>
+    </li>
+
+    <li>Link your S3 bucket to the lambda event so an upload to `raw-images` triggers a thumbnail conversion
+      <ul>
+        <li> This is more or less a rehashing/truncated version of the tutorial Amazon has <a href="http://docs.aws.amazon.com/lambda/latest/dg/with-s3.html">on their doc page</a></li>
+      </ul>
+    </li>
+    <li><h2> Watch the magic </h2><br>Upload an image and watch a thumbnail get created automatically!</li>
+    <li>
+        <form method="post" id="imageUploadForm" enctype="multipart/form-data" action="/uploadPost" class="input">
+        Please specify file to upload: <input type="file" name="upfile"><br />
+        <input type="submit" value="submit" id="submitButton"></li>
+    <li id="imagedisplay">
+      <!-- <div id="imagedisplay" class="imageColumn"></div> -->
+    </li>
+    </ul>
+
+
+    
+</form>
+  </div>
+
+
+
+</body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#imageUploadForm').submit(function(evt) {
+            evt.preventDefault();
+
+            var formData = new FormData(this);
+            
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data:formData,
+                cache:false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    // $('#imagedisplay').html("Generated Thumbnail: <img src=" + data + ">");
+
+                    // need to wait for our URL to actually exist - the server returns URL before thumb is generated
+                    var img = $("<img />").attr('src', data)
+                    .on('load', function() {
+                        if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
+                            alert('broken thumbnail!');
+                        } else {
+                            $("#imagedisplay").html(img);
+                        }
+                    });
+
+                    alert('Upload successful' + "\n" + JSON.stringify(data));
+                    console.log(JSON.stringify(data));
+                },
+                error: function(data) {
+                    alert("Status Code: " + data.status + " " + data.statusText + "\n" + "Message:" + data.responseText)
+                    $('#imagedisplay').html("<h2>this file type is not supported</h2>");
+                    console.log(JSON.stringify(data));
+                }
+            });
+        });
+    });  // end of ready
+
+
+
+
+</script>
+
+</html>

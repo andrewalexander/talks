@@ -1,12 +1,15 @@
 Cyber Security
 Introduction and Demonstration
-16 Sep 2017
 
 Andrew Alexander
 Software Engineer/Cloud Architect, Capital One
 andrew.alexander@capitalone.com
 https://andrewalexander.io
+https://github.com/andrewalexander
 @andrewalex1992
+
+* Follow along
+https://github.com/andrewalexander/talks/tree/master/cyber-security
 
 * Who am I?
 - Front of desk - sw engineer, architect, evangelist
@@ -124,7 +127,7 @@ Ultimately, everything comes down to risk and priorities. Not all risk can be mi
 
 * Technology/Security Words and Stuff
 We live in a sea of buzzwords, and I tend to use terms interchangably or incorrectly and confuse people...
-Also brief introduction to some security concepts that we will be showing off in more detail later
+Mostly a brain dump of some security concepts that we will be showing off in more detail later
 --- 
 *API* - Application Programming Interfaces, commonly used to provide complex services/tasks with a simple contractual interface
 *Front-end* - Part of application the end-user interfaces with. Responsible for translating and sending user input to the back-end
@@ -202,6 +205,15 @@ Modern applications have a ton going on - one vulnerability in any part means th
     Entities decrypting SSL traffic - man in the middle (MITM)
       - Can be good or bad... companies monitoring associates' laptops vs. oppressive governments
 - Cookies - can be used for tracking or session hijacking
+
+* Cookies
+- Computerphile has two amazing videos on this:
+.link https://www.youtube.com/watch?v=LHSSY8QNvew
+.link https://www.youtube.com/watch?v=T1QEs3mdJoc
+- Cookies can only be set/retrieved by the domain in which they were meant; Google can't see Facebook's cookies
+- Websites can add code to make a request to Google, Facebook, Amazon, or any other company that sells targeted advertisements
+- When that request is made, Google, Facebook, Amazon, etc. can see that it's the same person, sets an identical cookie
+- Simple demo
 
 * What we will demonstrate today
 Underprotected web applications/APIs in the form of:
